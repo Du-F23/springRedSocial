@@ -21,6 +21,9 @@ public class User implements Serializable {
     @Column(name="password", nullable=false)
     private String password;
 
+    //OneToOne configuramos las relaciones
+    @OneToOne(mappedBy = "user")
+    private Usuario usuario;
 
     public User(String username, String password) {
         super();
@@ -53,5 +56,7 @@ public class User implements Serializable {
         this.username = username;
 
     }
+
+
 
 }

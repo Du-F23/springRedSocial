@@ -9,6 +9,8 @@ import java.util.Date;
 @Table(name = "te_usuarios")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipo", discriminatorType = DiscriminatorType.INTEGER)
+
+//OneToOne configuramos las relaciones
 public abstract class Usuario implements Serializable {
 
     @Id
@@ -28,6 +30,9 @@ public abstract class Usuario implements Serializable {
     @Column(name = "estado", nullable = false)
     private Boolean estado;
 
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
 
     public Usuario() {
         // TODO Auto-generated constructor stub
@@ -52,5 +57,69 @@ public abstract class Usuario implements Serializable {
         this.correo = correo;
         this.contrasena = contrasena;
         this.estado = estado;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public Date getFn() {
+        return fn;
+    }
+
+    public void setFn(Date fn) {
+        this.fn = fn;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    public String getContrasena() {
+        return contrasena;
+    }
+
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
+    }
+
+    public Boolean getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Boolean estado) {
+        this.estado = estado;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
