@@ -35,7 +35,6 @@ public class ManyToMany {
         categories.add(categories1);
         categories.add(categories2);
 
-        assert alumno != null;
         alumno.setCategorias(categories);
 
         this.usuarioRepository.save(alumno);
@@ -48,7 +47,7 @@ public class ManyToMany {
         alumno = (Alumno) this.usuarioRepository.findById(2L).orElse(null);
 
         assert alumno != null;
-        alumno.getCategorias().forEach(e -> System.out.println(e));
+        alumno.getCategorias().forEach(System.out::println);
     }
 
     @Test

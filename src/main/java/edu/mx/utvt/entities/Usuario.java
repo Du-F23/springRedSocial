@@ -41,6 +41,9 @@ public abstract class Usuario implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "categories", referencedColumnName = "id"))
     private List<Categories> categories;
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "usuario")
+    private List<Publicaciones> publicaciones;
+
     public Usuario() {
         // TODO Auto-generated constructor stub
     }
@@ -136,5 +139,17 @@ public abstract class Usuario implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public void setPublicaciones(List<Publicaciones> publicaciones) {
+        this.publicaciones = publicaciones;
+    }
+
+    public void setCategories(List<Categories> categories) {
+        this.categories = categories;
+    }
+
+    public List<Publicaciones> getPublicaciones() {
+        return publicaciones;
     }
 }
