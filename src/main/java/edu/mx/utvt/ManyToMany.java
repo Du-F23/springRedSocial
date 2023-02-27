@@ -2,6 +2,7 @@ package edu.mx.utvt;
 
 import edu.mx.utvt.entities.Alumno;
 import edu.mx.utvt.entities.Categories;
+import edu.mx.utvt.repository.CategoriesRepository;
 import edu.mx.utvt.repository.UsuarioRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,9 @@ import java.util.List;
 public class ManyToMany {
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private CategoriesRepository categoriesRepository;
 
     @Test
     public void addCategories(){
@@ -36,5 +40,34 @@ public class ManyToMany {
 
         this.usuarioRepository.save(alumno);
 
+    }
+
+    @Test
+    public void findUserByCategories(){
+        Alumno alumno = null;
+        alumno = (Alumno) this.usuarioRepository.findById(2L).orElse(null);
+
+        assert alumno != null;
+        alumno.getCategorias().forEach(e -> System.out.println(e));
+    }
+
+    @Test
+    public void deleteLinkingUsuarioCategoria(){
+        Alumno alumno = null;
+        alumno = (Alumno) this.usuarioRepository.findById(2L).orElse(null);
+        alumno.setCategorias(null);
+        this.usuarioRepository.save(alumno);
+    }
+
+    @Test
+    public void deleteCategories(){
+        Long categoryId = 1L;
+        Categories categories = null;
+
+        categories = this.categoriesRepository.findById(categoryId).orElse(null);
+        if(categories != null){
+            System.out.println("Categorie deleted success");
+            this.categoriesRepository.deleteById(categoryId);
+        }
     }
 }

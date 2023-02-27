@@ -66,4 +66,13 @@ public class Categories implements Serializable {
     public List<Usuario> getUsuarios() {
         return usuarios;
     }
+
+    @Override
+    public String toString() {
+        return "Categories{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }
