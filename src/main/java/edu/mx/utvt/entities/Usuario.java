@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "te_usuarios")
@@ -33,6 +34,12 @@ public abstract class Usuario implements Serializable {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name = "usuarios_categories",
+            joinColumns = @JoinColumn(name = "user", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "categories", referencedColumnName = "id"))
+    private List<Categories> categories;
 
     public Usuario() {
         // TODO Auto-generated constructor stub
@@ -89,6 +96,14 @@ public abstract class Usuario implements Serializable {
 
     public void setFn(Date fn) {
         this.fn = fn;
+    }
+
+    public void setCategorias(List<Categories> categorias) {
+        this.categories = categorias;
+    }
+
+    public List<Categories> getCategorias() {
+        return categories;
     }
 
     public String getCorreo() {
